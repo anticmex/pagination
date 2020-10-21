@@ -25,12 +25,13 @@ def bus_stations(request):
         page_obj = paginator.get_page(current_page)
         data = page_obj.object_list
         page_back = None
+        if current_page > 1:
+            pp = page_obj.previous_page_number()
+            page_back = "?" + urllib.parse.urlencode({'page': pp})
+
         if page_obj.has_next():
             np = page_obj.next_page_number()
             page_next = "?" + urllib.parse.urlencode({'page': np})
-            if current_page > 1:
-                pp = page_obj.previous_page_number()
-                page_back = "?" + urllib.parse.urlencode({'page': pp})
 
         else:
             page_next = None
